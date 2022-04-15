@@ -1,0 +1,13 @@
+{
+    "users": [
+      {
+        "firstName": "",
+        "lastName": "",
+        "email": "",
+        "password": "",
+        "province": "",
+        "city": "",
+        "id": 1
+      }
+    ]
+  }
