@@ -17,9 +17,11 @@ const validationSchema = Yup.object({
 
 function LogIn() {
   const [visiblity, setvisibility] = useState(false);
-  const {usersdata, handlelogin } = useContext(UsersContext);
-  const {user,setUser}=useContext(AuthentContext);
-  console.log(usersdata);
+  const {usersdata } = useContext(UsersContext);
+  // const{ handlelogin}= useContext(UsersContext);
+  const {setUser}=useContext(AuthentContext);
+  // const {user}=useContext(AuthentContext);
+  // console.log(usersdata);
 
   const { handleSubmit, handleChange, values, errors} = useFormik({
     initialValues: {
@@ -28,17 +30,22 @@ function LogIn() {
     },
     validationSchema,
     onSubmit(values,{resetForm}) {
+      setUser(false);
       usersdata.map(item => {
-        // setUser(false);
         if (item.email === values.email && item.password === values.password) {       
-          setUser(item)
-          return;
+          setUser(item);
         }
+        return true;
       })
-      alert(JSON.stringify(user, null, 2));
-      console.log(values);
-      console.log(user);
-      resetForm();
+      // if(!user){
+      //   alert("اشتباه....");
+      // }
+      // return alert("خوش آمدید!!!");
+      // alert(JSON.stringify(user, null, 2));
+      // console.log(values);
+      // console.log(user);
+      
+      // resetForm();
     }
   });
 
@@ -85,4 +92,4 @@ function LogIn() {
   );
 }
 
-export default LogIn;
+export default memo(LogIn);

@@ -1,73 +1,114 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, memo } from "react";
+// import{useContext } from "react";
 import { Formik } from "formik";
 import axios from "axios";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
+// import { UsersContext } from "../Context/UsersContext";
 
-const initialValues = {
-  email: "",
-  password: "",
-  fname: "",
-  lname: "",
-  edu: "",
-  edulocation: "",
-  state: "",
-  city: "",
-};
-
-const validate = (values) => {
-  let errors = {};
-  const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-  if (!values.email) {
-    errors.email = "لطفا فیلد Email را پر کنید.";
-  } else if (!regex.test(values.email)) {
-    errors.email = "Email  صحیح نیست";
-  }
-  if (!values.password) {
-    errors.password = "لطفا فیلد Password را پر کنید.";
-  } else if (values.password.length < 6) {
-    errors.password = "کلمه عبور کوتاه است -باید حداقل ۶ کاراکتر داشته باشد.";
-  }
-  if (!values.fname) {
-    errors.fname = "لطفا فیلد  را پر کنید.";
-  } else if (values.fname.length < 1) {
-    errors.fname = "باید حداقل 1 کاراکتر داشته باشد.";
-  }
-  if (!values.lname) {
-    errors.lname = "لطفا فیلد  را پر کنید.";
-  } else if (values.lname.length < 1) {
-    errors.lname = "باید حداقل 1 کاراکتر داشته باشد.";
-  }
-  if (values.edu !== "") {
-    if (!values.edulocation) {
-      errors.edulocation = "لطفا فیلد  را پر کنید.";
-    }
-  }
-  if (!values.state) {
-    errors.state = "لطفا فیلد  را پر کنید.";
-  }
-  if (!values.city) {
-    errors.city = "لطفا فیلد  را پر کنید.";
-  }
-  return errors;
-};
-const submitForm = (values) => {
-  console.log(values);
-  setTimeout(() => {
-    axios.post(" http://localhost:3002/users", values);
-  }, 1000);
-};
-const submitone = (values, { setSubmitting }) => {
-  setTimeout(() => {
-    alert(JSON.stringify(values, null, 2));
-    setSubmitting(false);
-  }, 1000);
-};
 
 const SignUp = () => {
   const [visiblity, setvisibility] = useState(false);
   const [data, setdata] = useState({});
   const [city, setcity] = useState([]);
 
+  // const {usersdata } = useContext(UsersContext);
+
+  const initialValues = {
+    email: "",
+    password: "",
+    fname: "",
+    lname: "",
+    edu: "",
+    edulocation: "",
+    state: "",
+    city: "",
+  };
+  
+  const validate = (values) => {
+    let errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (!values.email) {
+      errors.email = "لطفا فیلد Email را پر کنید.";
+    } else if (!regex.test(values.email)) {
+      errors.email = "Email  صحیح نیست";
+    }
+    if (!values.password) {
+      errors.password = "لطفا فیلد Password را پر کنید.";
+    } else if (values.password.length < 6) {
+      errors.password = "کلمه عبور کوتاه است -باید حداقل ۶ کاراکتر داشته باشد.";
+    }
+    if (!values.fname) {
+      errors.fname = "لطفا فیلد  را پر کنید.";
+    } else if (values.fname.length < 1) {
+      errors.fname = "باید حداقل 1 کاراکتر داشته باشد.";
+    }
+    if (!values.lname) {
+      errors.lname = "لطفا فیلد  را پر کنید.";
+    } else if (values.lname.length < 1) {
+      errors.lname = "باید حداقل 1 کاراکتر داشته باشد.";
+    }
+    if (values.edu !== "") {
+      if (!values.edulocation) {
+        errors.edulocation = "لطفا فیلد  را پر کنید.";
+      }
+    }
+    if (!values.state) {
+      errors.state = "لطفا فیلد  را پر کنید.";
+    }
+    if (!values.city) {
+      errors.city = "لطفا فیلد  را پر کنید.";
+    }
+    return errors;
+  };
+  const submitForm = (values) => {
+    console.log(values);
+    axios.post(" http://localhost:3002/users", values);
+  };
+  // const checkEmail=(values)=>{
+  //   usersdata.map(item => {
+  //     if (item.email === values.email ) {       
+  //       return alert("این ایمیل قبلاْ استفاده شده است.")
+  //     }else{
+  //     return true;
+  //     }
+  //     // return true;
+  //   })
+  // }
+  const checkFields=(values)=>{
+
+    if (
+      values.edu !== "" &&
+      values.edulocation !== "" &&
+      values.fname !== "" &&
+      values.password !== "" &&
+      values.lname !== "" &&
+      values.email !== "" &&
+      values.state !== "" &&
+      values.city !== ""
+    ) {
+     return true;
+    } else if (
+      values.fname !== "" &&
+      values.password !== "" &&
+      values.lname !== "" &&
+      values.email !== "" &&
+      values.state !== "" &&
+      values.city !== "" &&
+      values.edu === "" &&
+      values.edulocation === ""
+    ) {
+     return true;
+    }else{
+      return false;
+    }
+  }
+  // const submitone = (values, { setSubmitting }) => {
+  //   setTimeout(() => {
+  //     alert(JSON.stringify(values, null, 2));
+  //     setSubmitting(false);
+  //   }, 1000);
+  // };
+  
   function getcity(event) {
     setcity([]);
     const select = event.target.value;
@@ -78,6 +119,7 @@ const SignUp = () => {
         if (item === select) {
           return setcity(data[item]);
         }
+        return true;
       });
     }
   }
@@ -103,15 +145,31 @@ const SignUp = () => {
           values,
           handleChange,
           handleSubmit,
+          resetForm,
           errors,
-          touched,
-          handleBlur,
-          isValid,
-          dirty,
+          // touched,
+          // handleBlur,
+          // isValid,
+          // dirty,
         } = formik;
 
         return (
-          <form className="signup-container" onSubmit={handleSubmit}>
+          <form
+            className="signup-container"
+            onSubmit={(e) => {
+              e.preventDefault();
+              // && checkEmail(values)
+              if(checkFields(values) ){
+                handleSubmit(e);
+                setTimeout(() => {
+                  alert(JSON.stringify(values, null, 2));
+                  resetForm();
+                }, 1000);
+              }else{
+                alert("فرم را کامل پر کنید.")
+              }
+            }}
+          >
             <h2>رایگان ثبت نام کنید</h2>
             <div className="container--inside">
               <div className="contain-1">
@@ -141,9 +199,9 @@ const SignUp = () => {
               <div className="contain-1">
                 <label>میزان تحصیلات</label>
                 <select
-                  onChange={() => (values.edulocation = "")}
+                  onClick={() => (values.edulocation = "")}
                   value={values.edu}
-                  onClick={handleChange}
+                  onChange={handleChange}
                   name="edu"
                 >
                   <option value="">&#8226;میزان تحصیلات</option>
@@ -175,9 +233,9 @@ const SignUp = () => {
               <div className="contain-1">
                 <label>استان</label>
                 <select
-                  onClick={handleChange}
+                  onChange={handleChange}
                   value={values.state}
-                  onChange={(event) => getcity(event)}
+                  onClick={(event) => getcity(event)}
                   name="state"
                 >
                   <option>&#8226; استان محل تولد</option>
@@ -240,4 +298,4 @@ const SignUp = () => {
     </Formik>
   );
 };
-export default SignUp;
+export default memo(SignUp);

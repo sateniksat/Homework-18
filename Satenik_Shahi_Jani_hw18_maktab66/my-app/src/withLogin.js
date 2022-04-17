@@ -3,11 +3,12 @@ import Tabs from './Components/Tabs';
 import { AuthentContext } from './Context/AuthentContext';
 
 const WithLoginHOC = (Component) => {
-  const {user,setUser}=useContext(AuthentContext);
-  return function withLogin(props) {
-
-    return (
-      <Component user={user} setUser={setUser} {...props} />
+  return function WithLogin(props) {
+    const {user,setUser}=useContext(AuthentContext);
+   return (
+     <>
+     {user===false ? <Tabs/> :  <Component user={user} setUser={setUser} {...props} />}
+     </>
     );
   };
 };

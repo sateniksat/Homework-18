@@ -1,4 +1,3 @@
-
 *,
 ::before,
 ::after {
@@ -11,6 +10,26 @@ body {
   background: #c0bdb6;
 }
 
+.App {
+  width: 100%;
+  padding: 5%;
+  margin: 5% 0;
+  background-color: #059e6bb8;
+}
+.App span {
+  color: #fff;
+  text-transform: capitalize;
+}
+.App button {
+  padding: 1%;
+  margin: 2% 0;
+  text-transform: uppercase;
+  box-shadow: 0 1rem 2rem #333333c2;
+}
+.App button:hover {
+  background-color: rgba(255, 255, 255, 0.55);
+  box-shadow: 0 1rem 2rem hsl(0 0% 0% / 70%);
+}
 .container-0 {
   width: 40%;
   background: #25333c;
@@ -27,7 +46,7 @@ body {
   width: 100%;
   min-height: 50vh;
   word-break: break-all;
-  color: #717F88;
+  color: #717f88;
 }
 
 .bloc-tabs {
@@ -46,7 +65,7 @@ body {
   position: relative;
   outline: none;
   min-height: 3.95vh;
-  transition: all .5s;
+  transition: all 0.5s;
 }
 .tabs:hover {
   font-size: 1.25em;
@@ -72,29 +91,30 @@ button {
   display: none;
 }
 .content h2 {
- color: #fff;
- padding: 4%;
- text-align: center;
+  color: #fff;
+  padding: 4%;
+  text-align: center;
 }
 .active-content {
   display: block;
 }
-.login-container,.signup-container{
-direction: rtl;
-text-align: start;
-display: flex;
-flex-direction: column;
+.login-container,
+.signup-container {
+  direction: rtl;
+  text-align: start;
+  display: flex;
+  flex-direction: column;
 }
-input{
+input {
   width: 100%;
   color: #fff;
   direction: rtl;
   padding: 3% 2%;
-  border: solid 1px #717F88;
+  border: solid 1px #717f88;
   border-radius: 2px;
   background: inherit;
 }
-input::placeholder{
+input::placeholder {
   color: #e0ded9;
 }
 /* input:last-child{
@@ -103,12 +123,12 @@ input::placeholder{
 /* input:focus::placeholder {
   color: transparent;
 }*/
-label{
+label {
   opacity: 0;
   margin: 1% 0;
   transition: opacity linear 0.5s;
 }
-button.submit-login{
+button.submit-login {
   width: 100%;
   font-size: 1.5em;
   color: #fff;
@@ -117,55 +137,55 @@ button.submit-login{
   margin: 5% 0 5% 0;
   padding: 3% 5%;
 }
-button.submit-login:hover{
+button.submit-login:hover {
   background: #059e6b;
   box-shadow: 0 19px 38px rgba(0, 0, 0, 0.3), 0 15px 12px rgba(0, 0, 0, 0.22);
 }
-.forgot-pass{
+.forgot-pass {
   font-size: small;
   font-weight: 700;
   color: #1aa778;
   margin: 1% 0 0 0;
   padding: 2% 0;
 }
-.login-pass{
+.login-pass {
   position: relative;
 }
-.pass-eye{
+.pass-eye {
   position: absolute;
   font-size: x-large;
   top: 40%;
   left: 2%;
   color: #fff;
 }
-.container--inside{
+.container--inside {
   display: flex;
   justify-content: space-between;
 }
-.container--inside input{
+.container--inside input {
   padding: 5% 2%;
 }
-.contain-1{
+.contain-1 {
   margin-bottom: 2% 0;
   display: flex;
   flex-direction: column;
   width: 48%;
 }
-select{
+select {
   background: inherit;
   color: #e0ded9;
   padding: 5% 2%;
 }
-option{
+option {
   background-color: #44535a;
   color: #fff;
   padding: 3%;
   font-size: medium;
 }
-input:disabled{
+input:disabled {
   background-color: #4f6675;
 }
-.warning{
+.warning {
   color: red;
   font-size: small;
 }
