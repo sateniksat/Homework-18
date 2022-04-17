@@ -9,7 +9,7 @@ const initialValues = {
   fname: "",
   lname: "",
   edu: "",
-  edulocation:"",
+  edulocation: "",
   state: "",
   city: "",
 };
@@ -37,7 +37,7 @@ const validate = (values) => {
   } else if (values.lname.length < 1) {
     errors.lname = "باید حداقل 1 کاراکتر داشته باشد.";
   }
-  if(values.edu!==""){
+  if (values.edu !== "") {
     if (!values.edulocation) {
       errors.edulocation = "لطفا فیلد  را پر کنید.";
     }
@@ -52,6 +52,9 @@ const validate = (values) => {
 };
 const submitForm = (values) => {
   console.log(values);
+  setTimeout(() => {
+    axios.post(" http://localhost:3002/users", values);
+  }, 1000);
 };
 const submitone = (values, { setSubmitting }) => {
   setTimeout(() => {
@@ -117,6 +120,7 @@ const SignUp = () => {
                   onChange={handleChange}
                   type="text"
                   name="fname"
+                  value={values.fname}
                   placeholder="&#8226; نام"
                 />
                 <p className="warning">{errors.fname ? errors.fname : null}</p>
@@ -127,6 +131,7 @@ const SignUp = () => {
                   onChange={handleChange}
                   type="text"
                   name="lname"
+                  value={values.lname}
                   placeholder="&#8226; نام خانوادگی"
                 />
                 <p className="warning">{errors.lname ? errors.lname : null}</p>
@@ -135,7 +140,12 @@ const SignUp = () => {
             <div className="container--inside">
               <div className="contain-1">
                 <label>میزان تحصیلات</label>
-                <select onChange={handleChange}  onClick={()=>values.edulocation=""} name="edu">
+                <select
+                  onChange={() => (values.edulocation = "")}
+                  value={values.edu}
+                  onClick={handleChange}
+                  name="edu"
+                >
                   <option value="">&#8226;میزان تحصیلات</option>
                   <option value="Degree">سیکل</option>
                   <option value="Diploma">دیپلم</option>
@@ -152,6 +162,7 @@ const SignUp = () => {
                     onChange={handleChange}
                     name="edulocation"
                     type="text"
+                    value={values.edulocation}
                     placeholder="&#8226;محل تحصیل"
                   />
                   <p className="warning">
@@ -164,8 +175,9 @@ const SignUp = () => {
               <div className="contain-1">
                 <label>استان</label>
                 <select
-                  onChange={handleChange}
-                  onClick={(event) => getcity(event)}
+                  onClick={handleChange}
+                  value={values.state}
+                  onChange={(event) => getcity(event)}
                   name="state"
                 >
                   <option>&#8226; استان محل تولد</option>
@@ -179,7 +191,7 @@ const SignUp = () => {
               </div>
               <div className="contain-1">
                 <label>محل تولد</label>
-                <select name="city" onChange={handleChange}>
+                <select name="city" value={values.city} onChange={handleChange}>
                   <option>&#8226;شهر محل تولد</option>
                   {city.map((item) => (
                     <option value={item} key={item}>
@@ -195,6 +207,7 @@ const SignUp = () => {
               onChange={handleChange}
               name="email"
               type="email"
+              value={values.email}
               placeholder="&#8226; پست الکترونیک"
             />
             <p className="warning">{errors.email ? errors.email : null}</p>
@@ -204,6 +217,7 @@ const SignUp = () => {
                 className="login-pass"
                 name="password"
                 type={visiblity ? "text" : "password"}
+                value={values.password}
                 onChange={handleChange}
                 placeholder="&#8226; کلمه عبور"
               />

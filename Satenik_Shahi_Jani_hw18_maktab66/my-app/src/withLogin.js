@@ -1,11 +1,14 @@
-import React from 'react'
-import { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useContext } from 'react'
+import Tabs from './Components/Tabs';
+import { AuthentContext } from './Context/AuthentContext';
 
-function withLogin() {
-  return (
-    <div>withLogin</div>
-  )
-}
+const WithLoginHOC = (Component) => {
+  const {user,setUser}=useContext(AuthentContext);
+  return function withLogin(props) {
 
-export default withLogin
+    return (
+      <Component user={user} setUser={setUser} {...props} />
+    );
+  };
+};
+export default WithLoginHOC;

@@ -1,12 +1,22 @@
-import './App.css';
-import Tabs from './Components/Tabs'
+import "./App.css";
+import WithLoginHOC from "./withLogin";
+import React from "react";
+import UsersContextProvider from "./Context/UsersContext";
+import AuthentProvider from "./Context/AuthentContext";
+import Tabs from "./Components/Tabs";
 
-function App() {
+function App({ user, setUser, ...props }) {
+  const handleLogOut = () => {
+    setUser(false);
+  };
   return (
-    <div className="App">
-      <Tabs/>
-    </div>
+    <>
+    {/* <Tabs/> */}
+      <h1>Hello {user.fname}</h1>
+      <button onClick={() => handleLogOut}>LOG OUT</button>
+    </>
   );
 }
 
-export default App;
+// export default (App);
+export default WithLoginHOC(App);

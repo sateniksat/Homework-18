@@ -1,25 +1,13 @@
-import React, { useState, createContext, useEffect } from "react";
+import React, { useState, createContext } from "react";
 
 export const AuthentContext = createContext();
 
 export const AuthentProvider = ({ children }) => {
 
-  const [items, setdataFetch] = useState([]);
-
-  const [checked, setChecked] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get("/json/iranstates.json")
-      .then((res) => {
-        const dataJson = res.data;
-        setdatafetch(dataJson);
-      })
-      .catch((error) => alert(error));
-  }, []);
+  const [user, setUser] = useState(false);
 
   return (
-    <AuthentContext.Provider value={{ items, checkItem, checked }}>
+    <AuthentContext.Provider value={{user,setUser}}>
       {children}
     </AuthentContext.Provider>
   );
